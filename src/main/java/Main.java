@@ -48,14 +48,15 @@ public class Main {
 
         // Service User
         UserServices userService = new UserServices(sql2o);
-        get("/user1", (request, response) -> {
+
+        get("/users", (request, response) -> {
             response.status(200);
             response.type("application/json");
 
             return userService.getAllUser();
         }, jsonTransformer);
 
-        post("/user1", (request, response) -> {
+        post("/users", (request, response) -> {
             ObjectMapper mapper = new ObjectMapper();
             User creation = mapper.readValue(request.body(), User.class);
 
@@ -70,33 +71,16 @@ public class Main {
             return id;
         });
 
-        post("/login", (request, response) -> {
-            ObjectMapper mapper = new ObjectMapper();
-            User creation = mapper.readValue(request.body(), User.class);
-
-            String id = userService.insertUser(
-                UUID.randomUUID().toString(),
-                creation.getUsername(),
-                creation.getSaldo()
-            );
-
-            response.status(200);
-            response.type("application/json");
-            return id;
-        });
-
-//        get("/users", (request, response) -> {
-//            response.status(200);
-//            response.type("application/json");
-//
-//            return db.getAllUser(sql2o);
-//        }, jsonTransformer);
-//
-//        post("/users", (request, response) -> {
+//        post("/login", (request, response) -> {
 //            ObjectMapper mapper = new ObjectMapper();
 //            User creation = mapper.readValue(request.body(), User.class);
-//            String id = db.insertUser(sql2o, UUID.randomUUID().toString(), creation.getUsername(),
-//                creation.getSaldo());
+//
+//            String id = userService.insertUser(
+//                UUID.randomUUID().toString(),
+//                creation.getUsername(),
+//                creation.getSaldo()
+//            );
+//
 //            response.status(200);
 //            response.type("application/json");
 //            return id;
@@ -142,34 +126,5 @@ public class Main {
 
             return transaksiService.getDataPengirim("transaksi1");
         }, jsonTransformer);
-
-//        get("/transfer", (request, response) -> {
-//            response.status(200);
-//            response.type("application/json");
-//
-//            return db.getAllTransfer();
-//        }, jsonTransformer);
-
-//        post("/transfer", (request, response) -> {
-//            ObjectMapper mapper = new ObjectMapper();
-//            Transaksi creation = mapper.readValue(request.body(), Transaksi.class);
-//
-//            String id = db.doTransfer(sql2o, UUID.randomUUID().toString(), creation
-//            .getIdPengirim(),
-//                creation.getIdPenerima(), creation.getJumlahUang());
-//
-//            db.updateSaldoUserPengirim(sql2o, creation.getIdPengirim(), creation.getJumlahUang());
-//            db.updateSaldoUserPenerima(sql2o, creation.getIdPenerima(), creation.getJumlahUang());
-//
-//            response.status(200);
-//            response.type("application/json");
-//            return id;
-//        });
-
-//        get("/saldofromuser", (request, response) -> {
-//            response.status(200);
-//            response.type("application/json");
-//            return db.getDataPengirim(sql2o, "transaksi1");
-//        }, jsonTransformer);
     }
 }
