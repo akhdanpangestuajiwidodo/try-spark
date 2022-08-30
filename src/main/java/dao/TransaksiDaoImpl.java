@@ -6,7 +6,7 @@ import model.Transaksi;
 import model.User;
 import org.sql2o.Sql2o;
 
-public class TransaksiDaoImplementation implements TranasaksiDao {
+public class TransaksiDaoImpl implements TranasaksiDao {
     @Override
     public List<Transaksi> getAllTransfer(Sql2o sql2o) {
         try (org.sql2o.Connection conn = sql2o.open()) {

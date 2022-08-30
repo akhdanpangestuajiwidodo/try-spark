@@ -1,6 +1,6 @@
 package service;
 
-import dao.UserDaoImplementation;
+import dao.UserDaoImpl;
 import java.util.List;
 import javax.inject.Inject;
 import model.User;
@@ -8,12 +8,12 @@ import org.sql2o.Sql2o;
 
 public class UserServices {
 
-    private final UserDaoImplementation userDao;
+    private final UserDaoImpl userDao;
 
     private final Sql2o sql2o;
 
     @Inject
-    public UserServices(UserDaoImplementation userDao, Sql2o sql2o) {
+    public UserServices(UserDaoImpl userDao, Sql2o sql2o) {
         this.userDao = userDao;
         this.sql2o = sql2o;
     }

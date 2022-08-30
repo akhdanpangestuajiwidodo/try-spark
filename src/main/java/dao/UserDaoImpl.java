@@ -4,7 +4,7 @@ import java.util.List;
 import model.User;
 import org.sql2o.Sql2o;
 
-public class UserDaoImplementation implements UserDao {
+public class UserDaoImpl implements UserDao {
     @Override
     public String insertUser(Sql2o sql2o, String userId, String username, int saldo) {
         try (org.sql2o.Connection connection = sql2o.open()) {
