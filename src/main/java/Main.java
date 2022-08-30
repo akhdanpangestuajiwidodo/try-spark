@@ -5,6 +5,8 @@ import static spark.Spark.post;
 import DataSource.DataSource;
 import Utils.JsonTransformer;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import java.util.UUID;
 import model.Transaksi;
 import model.User;
@@ -14,6 +16,10 @@ import service.UserServices;
 
 public class Main {
     public static void main(String[] args) {
+
+        Injector injector = Guice.createInjector(new AppModule());
+        UserServices userService = injector.getInstance(UserServices.class);
+        TransaksiServices transaksiService = injector.getInstance(TransaksiServices.class);
 //        Connection conn = db.connectToDb("minioy", "postgres", "130301");
 //        db.insertUser(conn, "users", UUID.randomUUID().toString(), "akhdan", 100);
 
@@ -42,12 +48,7 @@ public class Main {
 
         get("/ping", ((request, response) -> "Aman Maszeh"));
 
-        Sql2o sql2o = new Sql2o(DataSource.getMainDataSource());
-
         JsonTransformer jsonTransformer = new JsonTransformer();
-
-        // Service User
-        UserServices userService = new UserServices(sql2o);
 
         get("/users", (request, response) -> {
             response.status(200);
@@ -71,23 +72,7 @@ public class Main {
             return id;
         });
 
-//        post("/login", (request, response) -> {
-//            ObjectMapper mapper = new ObjectMapper();
-//            User creation = mapper.readValue(request.body(), User.class);
-//
-//            String id = userService.insertUser(
-//                UUID.randomUUID().toString(),
-//                creation.getUsername(),
-//                creation.getSaldo()
-//            );
-//
-//            response.status(200);
-//            response.type("application/json");
-//            return id;
-//        });
-
         //Service Transfer
-        TransaksiServices transaksiService = new TransaksiServices(sql2o);
         get("/transfer", (request, response) -> {
             response.status(200);
             response.type("application/json");
