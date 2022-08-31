@@ -5,6 +5,7 @@ import static spark.Spark.port;
 import static spark.Spark.post;
 
 import controller.PingController;
+import controller.TransaksiController;
 import controller.UserController;
 import helper.JsonTransformer;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,53 +29,8 @@ public class Main {
         //connect using hikari
         port(4567);
 
-        before(((request, response) -> {
-            boolean isNotLogin = false;
-            if(isNotLogin){
-                halt(401, "Harus login dulu");
-            }
-        }));
-
         new PingController();
         new UserController(userService, jsonTransformer, mapper);
-
-        //Service Transfer
-        get("/transfer", (request, response) -> {
-            response.status(200);
-            response.type("application/json");
-
-            return transaksiService.getAllTransfer();
-        }, jsonTransformer);
-
-        post("/transfer", (request, response) -> {
-            Transaksi creation = mapper.readValue(request.body(), Transaksi.class);
-
-            String id = transaksiService.doTransfer(
-                UUID.randomUUID().toString(),
-                creation.getIdPengirim(),
-                creation.getIdPenerima(),
-                creation.getJumlahUang()
-            );
-
-            transaksiService.updateSaldoUserPengirim(
-                creation.getIdPengirim(),
-                creation.getJumlahUang()
-            );
-            transaksiService.updateSaldoUserPenerima(
-                creation.getIdPenerima(),
-                creation.getJumlahUang()
-            );
-
-            response.status(200);
-            response.type("application/json");
-            return id;
-        });
-
-        get("/saldofromuser", (request, response) -> {
-            response.status(200);
-            response.type("application/json");
-
-            return transaksiService.getDataPengirim("transaksi1");
-        }, jsonTransformer);
+        new TransaksiController(transaksiService, jsonTransformer, mapper);
     }
 }
