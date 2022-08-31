@@ -2,20 +2,28 @@ package dao;
 
 import java.util.Date;
 import java.util.List;
+import javax.inject.Inject;
 import model.Transaksi;
 import model.User;
 import org.sql2o.Sql2o;
 
 public class TransaksiDaoImpl implements TranasaksiDao {
+
+    private final Sql2o sql2o;
+
+    @Inject
+    public TransaksiDaoImpl(Sql2o sql2o){
+        this.sql2o = sql2o;
+    }
     @Override
-    public List<Transaksi> getAllTransfer(Sql2o sql2o) {
+    public List<Transaksi> getAllTransfer() {
         try (org.sql2o.Connection conn = sql2o.open()) {
             return conn.createQuery("select * from transaksi").executeAndFetch(Transaksi.class);
         }
     }
 
     @Override
-    public String doTransfer(Sql2o sql2o, String transaksiId, String idPengirim, String idPenerima,
+    public String doTransfer(String transaksiId, String idPengirim, String idPenerima,
                              int jumlahUang) {
         try (org.sql2o.Connection connection = sql2o.open()) {
             connection.createQuery(
@@ -36,7 +44,7 @@ public class TransaksiDaoImpl implements TranasaksiDao {
     }
 
     @Override
-    public int getDataPengirim(Sql2o sql2o, String idPengirim) {
+    public int getDataPengirim(String idPengirim) {
         try (org.sql2o.Connection conn = sql2o.open()) {
             List<User> saldoUser =
                 conn.createQuery("SELECT saldo from users where userid = :userid")
@@ -48,7 +56,7 @@ public class TransaksiDaoImpl implements TranasaksiDao {
     }
 
     @Override
-    public Transaksi getSpecificTransfer(Sql2o sql2o, String transaksiid) {
+    public Transaksi getSpecificTransfer(String transaksiid) {
         try (org.sql2o.Connection conn = sql2o.open()) {
             return conn.createQuery("SELECT * from transaksi where transaksiid = :transaksiid")
                 .addParameter("transaksiid", transaksiid)
@@ -57,7 +65,7 @@ public class TransaksiDaoImpl implements TranasaksiDao {
     }
 
     @Override
-    public void updateSaldoUserPenerima(Sql2o sql2o, String userid, int besartransaksi) {
+    public void updateSaldoUserPenerima(String userid, int besartransaksi) {
         try (org.sql2o.Connection connection = sql2o.open()) {
             connection.createQuery(
                     "update users set saldo = (saldo + :besartransaksi) where userid = :userid")
@@ -70,7 +78,7 @@ public class TransaksiDaoImpl implements TranasaksiDao {
     }
 
     @Override
-    public void updateSaldoUserPengirim(Sql2o sql2o, String userid, int besartransaksi) {
+    public void updateSaldoUserPengirim(String userid, int besartransaksi) {
         try (org.sql2o.Connection connection = sql2o.open()) {
 
             connection.createQuery(

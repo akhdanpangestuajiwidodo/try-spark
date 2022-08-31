@@ -7,16 +7,16 @@ import model.User;
 import org.sql2o.Sql2o;
 
 public interface TranasaksiDao {
-    List<Transaksi> getAllTransfer(Sql2o sql2o);
+    List<Transaksi> getAllTransfer();
 
-    String doTransfer(Sql2o sql2o, String transaksiId, String idPengirim, String idPenerima,
+    String doTransfer(String transaksiId, String idPengirim, String idPenerima,
                       int jumlahUang);
 
-    int getDataPengirim(Sql2o sql2o, String idPengirim);
+    int getDataPengirim(String idPengirim);
 
-    Transaksi getSpecificTransfer(Sql2o sql2o, String transaksiid);
+    Transaksi getSpecificTransfer(String transaksiid);
 
-    void updateSaldoUserPenerima(Sql2o sql2o, String userid, int besartransaksi);
+    void updateSaldoUserPenerima(String userid, int besartransaksi);
 
-    void updateSaldoUserPengirim(Sql2o sql2o, String userid, int besartransaksi);
+    void updateSaldoUserPengirim(String userid, int besartransaksi);
 }

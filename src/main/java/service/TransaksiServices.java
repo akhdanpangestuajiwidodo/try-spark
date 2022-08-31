@@ -8,17 +8,14 @@ import org.sql2o.Sql2o;
 
 public class TransaksiServices {
     private final TransaksiDaoImpl transaksiDao;
-    private final Sql2o sql2o;
-
 
     @Inject
-    public TransaksiServices(TransaksiDaoImpl transaksiDao, Sql2o sql2o) {
+    public TransaksiServices(TransaksiDaoImpl transaksiDao) {
         this.transaksiDao = transaksiDao;
-        this.sql2o = sql2o;
     }
 
     public List<Transaksi> getAllTransfer() {
-        return transaksiDao.getAllTransfer(sql2o);
+        return transaksiDao.getAllTransfer();
     }
 
     public String doTransfer(
@@ -27,22 +24,22 @@ public class TransaksiServices {
         String idPenerima,
         int jumlahUang
     ) {
-        return transaksiDao.doTransfer(sql2o, transaksiId, idPengirim, idPenerima, jumlahUang);
+        return transaksiDao.doTransfer(transaksiId, idPengirim, idPenerima, jumlahUang);
     }
 
     public int getDataPengirim(String idPengirim) {
-        return transaksiDao.getDataPengirim(sql2o, idPengirim);
+        return transaksiDao.getDataPengirim(idPengirim);
     }
 
     public Transaksi getSpecificTransfer(String transaksiId) {
-        return transaksiDao.getSpecificTransfer(sql2o, transaksiId);
+        return transaksiDao.getSpecificTransfer(transaksiId);
     }
 
     public void updateSaldoUserPenerima(String userid, int besartransaksi) {
-        transaksiDao.updateSaldoUserPenerima(sql2o, userid, besartransaksi);
+        transaksiDao.updateSaldoUserPenerima(userid, besartransaksi);
     }
 
     public void updateSaldoUserPengirim(String userid, int besartransaksi) {
-        transaksiDao.updateSaldoUserPengirim(sql2o, userid, besartransaksi);
+        transaksiDao.updateSaldoUserPengirim(userid, besartransaksi);
     }
 }

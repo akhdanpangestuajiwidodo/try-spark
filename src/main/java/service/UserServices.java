@@ -1,11 +1,9 @@
 package service;
 
 import dao.UserDao;
-import dao.UserDaoImpl;
 import java.util.List;
 import javax.inject.Inject;
 import model.User;
-import org.sql2o.Sql2o;
 
 public class UserServices {
 
