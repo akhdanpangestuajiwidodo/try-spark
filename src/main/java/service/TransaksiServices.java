@@ -33,12 +33,4 @@ public class TransaksiServices {
     public Transaksi getSpecificTransfer(String transaksiId) {
         return transaksiDao.getSpecificTransfer(transaksiId);
     }
-
-    public void updateSaldoUserPenerima(String userid, int besartransaksi) {
-        transaksiDao.updateSaldoUserPenerima(userid, besartransaksi);
-    }
-
-    public void updateSaldoUserPengirim(String userid, int besartransaksi) {
-        transaksiDao.updateSaldoUserPengirim(userid, besartransaksi);
-    }
 }

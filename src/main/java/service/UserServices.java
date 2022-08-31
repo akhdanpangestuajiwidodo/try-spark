@@ -21,4 +21,12 @@ public class UserServices {
     public String insertUser(String userId, String username, int saldo) {
         return userDao.insertUser(userId, username, saldo);
     }
+
+    public String loginUser(String username){
+        return userDao.loginUser(username);
+    }
+
+    public User getStatusUser(String username){
+        return userDao.getStatusUser(username);
+    }
 }

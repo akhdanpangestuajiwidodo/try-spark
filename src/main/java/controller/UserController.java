@@ -31,5 +31,16 @@ public class UserController {
             response.type("application/json");
             return id;
         });
+
+        post("/login", (request, response) -> {
+            User creation = objectMapper.readValue(request.body(), User.class);
+
+            String username = userServices.loginUser(creation.getUsername());
+            User user = userServices.getStatusUser(username);
+
+            response.status(200);
+            response.type("application/json");
+            return user.isStatus();
+        });
     }
 }

@@ -1,4 +1,7 @@
+import static spark.Spark.before;
+import static spark.Spark.get;
 import static spark.Spark.port;
+import static spark.Spark.post;
 
 import controller.PingController;
 import controller.TransaksiController;
@@ -9,6 +12,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import service.TransaksiServices;
 import service.UserServices;
+import spark.Route;
 
 public class Main {
     public static void main(String[] args) {

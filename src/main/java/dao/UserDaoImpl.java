@@ -35,4 +35,21 @@ public class UserDaoImpl implements UserDao {
             return conn.createQuery("select * from users").executeAndFetch(User.class);
         }
     }
+
+    @Override
+    public String loginUser(String username) {
+        try(org.sql2o.Connection connection = sql2o.open()){
+           connection.createQuery("update users set status = true where username = :username")
+                .addParameter("username", username)
+                .executeUpdate();
+           return username;
+        }
+    }
+
+    @Override
+    public User getStatusUser(String username) {
+        try (org.sql2o.Connection conn = sql2o.open()) {
+            return conn.createQuery("select status from users where username = :username").addParameter("username", username).executeAndFetchFirst(User.class);
+        }
+    }
 }
