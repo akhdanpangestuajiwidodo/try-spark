@@ -25,7 +25,7 @@ public class TransaksiDaoImpl implements TranasaksiDao {
     @Override
     public String doTransfer(String transaksiId, String idPengirim, String idPenerima,
                              int jumlahUang) {
-        try (org.sql2o.Connection connection = sql2o.open()) {
+        try (org.sql2o.Connection connection = sql2o.beginTransaction()) {
             connection.createQuery(
                     "insert into transaksi VALUES (:transaksiid, :idpengirim, :idpenerima, "
                         + ":jumlahuang, :tanggalTransaksi)")
@@ -35,6 +35,20 @@ public class TransaksiDaoImpl implements TranasaksiDao {
                 .addParameter("jumlahuang", jumlahUang)
                 .addParameter("tanggalTransaksi", new Date())
                 .executeUpdate();
+
+            connection.createQuery(
+                    "update users set saldo = (saldo + :jumlahUang) where userid = :userid")
+                .addParameter("jumlahUang", jumlahUang)
+                .addParameter("userid", idPenerima)
+                .executeUpdate();
+
+            connection.createQuery(
+                    "update users set saldo = (saldo - :jumlahUang) where userid = :userid")
+                .addParameter("jumlahUang", jumlahUang)
+                .addParameter("userid", idPengirim)
+                .executeUpdate();
+
+            connection.commit();
 
             return transaksiId;
         } catch (Exception e) {
@@ -61,34 +75,6 @@ public class TransaksiDaoImpl implements TranasaksiDao {
             return conn.createQuery("SELECT * from transaksi where transaksiid = :transaksiid")
                 .addParameter("transaksiid", transaksiid)
                 .executeAndFetchFirst(Transaksi.class);
-        }
-    }
-
-    @Override
-    public void updateSaldoUserPenerima(String userid, int besartransaksi) {
-        try (org.sql2o.Connection connection = sql2o.open()) {
-            connection.createQuery(
-                    "update users set saldo = (saldo + :besartransaksi) where userid = :userid")
-                .addParameter("besartransaksi", besartransaksi)
-                .addParameter("userid", userid)
-                .executeUpdate();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    @Override
-    public void updateSaldoUserPengirim(String userid, int besartransaksi) {
-        try (org.sql2o.Connection connection = sql2o.open()) {
-
-            connection.createQuery(
-                    "update users set saldo = (saldo - :besartransaksi) where userid = :userid")
-                .addParameter("besartransaksi", besartransaksi)
-                .addParameter("userid", userid)
-                .executeUpdate();
-
-        } catch (Exception e) {
-            System.out.println(e);
         }
     }
 }

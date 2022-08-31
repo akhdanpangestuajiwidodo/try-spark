@@ -14,7 +14,4 @@ public interface TranasaksiDao {
 
     Transaksi getSpecificTransfer(String transaksiid);
 
-    void updateSaldoUserPenerima(String userid, int besartransaksi);
-
-    void updateSaldoUserPengirim(String userid, int besartransaksi);
 }

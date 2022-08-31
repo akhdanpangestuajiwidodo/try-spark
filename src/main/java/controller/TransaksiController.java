@@ -29,15 +29,6 @@ public class TransaksiController {
                 creation.getJumlahUang()
             );
 
-            transaksiServices.updateSaldoUserPengirim(
-                creation.getIdPengirim(),
-                creation.getJumlahUang()
-            );
-            transaksiServices.updateSaldoUserPenerima(
-                creation.getIdPenerima(),
-                creation.getJumlahUang()
-            );
-
             response.status(200);
             response.type("application/json");
             return id;
