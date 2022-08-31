@@ -20,28 +20,8 @@ public class Main {
         Injector injector = Guice.createInjector(new AppModule());
         UserServices userService = injector.getInstance(UserServices.class);
         TransaksiServices transaksiService = injector.getInstance(TransaksiServices.class);
-//        Connection conn = db.connectToDb("minioy", "postgres", "130301");
-//        db.insertUser(conn, "users", UUID.randomUUID().toString(), "akhdan", 100);
-
-        //DI Implementation
-
-        //check login before access the endpoint
-
-        //refactor name of class dsb
-
-        //postman documentation
-        //end pointnya apa aja
-        //response bentuknya gimana
-        //
-
-        //ubah key pakai underscore tanpa merubah model.java nya
-
-        //bikin package untuk dao
-        // - user dan transaksi sendiri
-
-        //db transaction di post /transfer
-
-        //service manggil dao
+        ObjectMapper mapper = injector.getInstance(ObjectMapper.class);
+        JsonTransformer jsonTransformer = injector.getInstance(JsonTransformer.class);
 
         //connect using hikari
         port(4567);
@@ -55,8 +35,6 @@ public class Main {
 
         get("/ping", ((request, response) -> "Aman Maszeh"));
 
-        JsonTransformer jsonTransformer = new JsonTransformer();
-
         get("/users", (request, response) -> {
             response.status(200);
             response.type("application/json");
@@ -65,7 +43,6 @@ public class Main {
         }, jsonTransformer);
 
         post("/users", (request, response) -> {
-            ObjectMapper mapper = new ObjectMapper();
             User creation = mapper.readValue(request.body(), User.class);
 
             String id = userService.insertUser(
@@ -88,7 +65,6 @@ public class Main {
         }, jsonTransformer);
 
         post("/transfer", (request, response) -> {
-            ObjectMapper mapper = new ObjectMapper();
             Transaksi creation = mapper.readValue(request.body(), Transaksi.class);
 
             String id = transaksiService.doTransfer(

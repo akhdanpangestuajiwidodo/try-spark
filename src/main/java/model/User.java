@@ -10,4 +10,5 @@ public class User {
     private String username;
     @JsonAlias("Saldo")
     private int saldo;
+    private boolean status;
 }
