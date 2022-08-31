@@ -1,12 +1,21 @@
 package dao;
 
 import java.util.List;
+import javax.inject.Inject;
 import model.User;
 import org.sql2o.Sql2o;
 
 public class UserDaoImpl implements UserDao {
+
+    private final Sql2o sql2o;
+
+    @Inject
+    public UserDaoImpl(Sql2o sql2o){
+        this.sql2o = sql2o;
+    }
+
     @Override
-    public String insertUser(Sql2o sql2o, String userId, String username, int saldo) {
+    public String insertUser(String userId, String username, int saldo) {
         try (org.sql2o.Connection connection = sql2o.open()) {
             connection.createQuery("insert into users VALUES (:userId, :username, :saldo)")
                 .addParameter("userId", userId)
@@ -21,7 +30,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> getAllUser(Sql2o sql2o) {
+    public List<User> getAllUser() {
         try (org.sql2o.Connection conn = sql2o.open()) {
             return conn.createQuery("select * from users").executeAndFetch(User.class);
         }

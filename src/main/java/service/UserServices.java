@@ -1,5 +1,6 @@
 package service;
 
+import dao.UserDao;
 import dao.UserDaoImpl;
 import java.util.List;
 import javax.inject.Inject;
@@ -8,21 +9,18 @@ import org.sql2o.Sql2o;
 
 public class UserServices {
 
-    private final UserDaoImpl userDao;
-
-    private final Sql2o sql2o;
+    private final UserDao userDao;
 
     @Inject
-    public UserServices(UserDaoImpl userDao, Sql2o sql2o) {
+    public UserServices(UserDao userDao) {
         this.userDao = userDao;
-        this.sql2o = sql2o;
     }
 
     public List<User> getAllUser() {
-        return userDao.getAllUser(sql2o);
+        return userDao.getAllUser();
     }
 
     public String insertUser(String userId, String username, int saldo) {
-        return userDao.insertUser(sql2o, userId, username, saldo);
+        return userDao.insertUser(userId, username, saldo);
     }
 }

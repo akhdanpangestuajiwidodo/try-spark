@@ -9,6 +9,7 @@ import dao.UserDaoImpl;
 import org.sql2o.Sql2o;
 
 public class AppModule extends AbstractModule {
+
     @Override
     protected void configure(){
         bind(UserDao.class).to(UserDaoImpl.class);

@@ -1,4 +1,6 @@
+import static spark.Spark.before;
 import static spark.Spark.get;
+import static spark.Spark.halt;
 import static spark.Spark.port;
 import static spark.Spark.post;
 
@@ -43,6 +45,13 @@ public class Main {
 
         //connect using hikari
         port(4567);
+
+        before(((request, response) -> {
+            boolean isNotLogin = false;
+            if(isNotLogin){
+                halt(401, "Harus login dulu");
+            }
+        }));
 
         get("/ping", ((request, response) -> "Aman Maszeh"));
 
