@@ -4,7 +4,6 @@ import dao.TransaksiDaoImpl;
 import java.util.List;
 import javax.inject.Inject;
 import model.Transaksi;
-import org.sql2o.Sql2o;
 
 public class TransaksiServices {
     private final TransaksiDaoImpl transaksiDao;

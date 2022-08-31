@@ -3,8 +3,6 @@ package dao;
 import java.util.Date;
 import java.util.List;
 import model.Transaksi;
-import model.User;
-import org.sql2o.Sql2o;
 
 public interface TranasaksiDao {
     List<Transaksi> getAllTransfer();
