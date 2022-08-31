@@ -4,6 +4,8 @@ import static spark.Spark.halt;
 import static spark.Spark.port;
 import static spark.Spark.post;
 
+import controller.PingController;
+import controller.UserController;
 import helper.JsonTransformer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Guice;
@@ -33,28 +35,8 @@ public class Main {
             }
         }));
 
-        get("/ping", ((request, response) -> "Aman Maszeh"));
-
-        get("/users", (request, response) -> {
-            response.status(200);
-            response.type("application/json");
-
-            return userService.getAllUser();
-        }, jsonTransformer);
-
-        post("/users", (request, response) -> {
-            User creation = mapper.readValue(request.body(), User.class);
-
-            String id = userService.insertUser(
-                UUID.randomUUID().toString(),
-                creation.getUsername(),
-                creation.getSaldo()
-            );
-
-            response.status(200);
-            response.type("application/json");
-            return id;
-        });
+        new PingController();
+        new UserController(userService, jsonTransformer, mapper);
 
         //Service Transfer
         get("/transfer", (request, response) -> {

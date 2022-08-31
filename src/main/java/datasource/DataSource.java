@@ -1,4 +1,4 @@
-package DataSource;
+package datasource;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
