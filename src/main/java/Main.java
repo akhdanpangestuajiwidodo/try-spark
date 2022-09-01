@@ -1,5 +1,6 @@
 import static spark.Spark.port;
 
+import controller.BalanceController;
 import controller.PingController;
 import controller.TransaksiController;
 import controller.UserController;
@@ -21,10 +22,12 @@ public class Main {
         UserController userController = injector.getInstance(UserController.class);
         TransaksiController transaksiController = injector.getInstance(TransaksiController.class);
         PingController pingController = injector.getInstance(PingController.class);
+        BalanceController balanceController = injector.getInstance(BalanceController.class);
         port(4567);
 
         pingController.registerApi();
         userController.registerApi();
         transaksiController.registerApi();
+        balanceController.registerApi();
     }
 }
