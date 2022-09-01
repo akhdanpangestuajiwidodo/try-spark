@@ -6,6 +6,7 @@ import static spark.Spark.post;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import helper.JsonTransformer;
 import java.util.UUID;
+import javax.inject.Inject;
 import model.User;
 import service.UserServices;
 
@@ -15,6 +16,7 @@ public class UserController extends AbstractController {
     private final JsonTransformer jsonTransformer;
     private final ObjectMapper objectMapper;
 
+    @Inject
     public UserController(UserServices userServices, JsonTransformer jsonTransformer,
                           ObjectMapper objectMapper) {
         this.userServices = userServices;
