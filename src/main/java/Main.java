@@ -26,9 +26,10 @@ public class Main {
         Injector injector = Guice.createInjector(new AppModule());
         UserController userController = injector.getInstance(UserController.class);
         TransaksiController transaksiController = injector.getInstance(TransaksiController.class);
+        PingController pingController = injector.getInstance(PingController.class);
         port(4567);
 
-        new PingController();
+        pingController.registerApi();
         userController.registerApi();
         transaksiController.registerApi();
     }
