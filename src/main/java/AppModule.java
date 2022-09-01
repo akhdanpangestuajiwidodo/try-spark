@@ -1,3 +1,5 @@
+import dao.BalanceDao;
+import dao.BalanceDaoImpl;
 import datasource.DataSource;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.AbstractModule;
@@ -16,6 +18,7 @@ public class AppModule extends AbstractModule {
     protected void configure(){
         bind(UserDao.class).to(UserDaoImpl.class);
         bind(TranasaksiDao.class).to(TransaksiDaoImpl.class);
+        bind(BalanceDao.class).to(BalanceDaoImpl.class);
     }
 
     @Provides
