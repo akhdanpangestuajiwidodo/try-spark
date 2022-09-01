@@ -9,9 +9,21 @@ import java.util.UUID;
 import model.User;
 import service.UserServices;
 
-public class UserController extends AbstractController{
+public class UserController extends AbstractController {
+
+    private final UserServices userServices;
+    private final JsonTransformer jsonTransformer;
+    private final ObjectMapper objectMapper;
+
     public UserController(UserServices userServices, JsonTransformer jsonTransformer,
                           ObjectMapper objectMapper) {
+        this.userServices = userServices;
+        this.jsonTransformer = jsonTransformer;
+        this.objectMapper = objectMapper;
+    }
+
+    @Override
+    public void registerApi() {
         get("/users", (request, response) -> {
             response.status(200);
             response.type("application/json");
@@ -42,5 +54,6 @@ public class UserController extends AbstractController{
             response.type("application/json");
             return user.isStatus();
         });
+
     }
 }

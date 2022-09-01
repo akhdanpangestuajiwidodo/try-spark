@@ -24,14 +24,12 @@ public class Main {
         //kayaknya dibutuhkan table baru untuk balance/ saldo
 
         Injector injector = Guice.createInjector(new AppModule());
-        UserServices userService = injector.getInstance(UserServices.class);
-        ObjectMapper mapper = injector.getInstance(ObjectMapper.class);
-        JsonTransformer jsonTransformer = injector.getInstance(JsonTransformer.class);
+        UserController userController = injector.getInstance(UserController.class);
         TransaksiController transaksiController = injector.getInstance(TransaksiController.class);
         port(4567);
 
         new PingController();
-        new UserController(userService, jsonTransformer, mapper);
+        userController.registerApi();
         transaksiController.registerApi();
     }
 }
