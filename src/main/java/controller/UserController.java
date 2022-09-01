@@ -9,7 +9,7 @@ import java.util.UUID;
 import model.User;
 import service.UserServices;
 
-public class UserController {
+public class UserController extends AbstractController{
     public UserController(UserServices userServices, JsonTransformer jsonTransformer,
                           ObjectMapper objectMapper) {
         get("/users", (request, response) -> {
