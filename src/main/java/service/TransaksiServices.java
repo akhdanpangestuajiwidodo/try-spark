@@ -1,15 +1,16 @@
 package service;
 
+import dao.TranasaksiDao;
 import dao.TransaksiDaoImpl;
 import java.util.List;
 import javax.inject.Inject;
 import model.Transaksi;
 
 public class TransaksiServices {
-    private final TransaksiDaoImpl transaksiDao;
+    private final TranasaksiDao transaksiDao;
 
     @Inject
-    public TransaksiServices(TransaksiDaoImpl transaksiDao) {
+    public TransaksiServices(TranasaksiDao transaksiDao) {
         this.transaksiDao = transaksiDao;
     }
 

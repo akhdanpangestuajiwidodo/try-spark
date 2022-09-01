@@ -37,13 +37,13 @@ public class TransaksiDaoImpl implements TranasaksiDao {
                 .executeUpdate();
 
             connection.createQuery(
-                    "update users set saldo = (saldo + :jumlahUang) where userid = :userid")
+                    "update balance set amount = (amount + :jumlahUang) where \"userId\" = :userid")
                 .addParameter("jumlahUang", jumlahUang)
                 .addParameter("userid", idPenerima)
                 .executeUpdate();
 
             connection.createQuery(
-                    "update users set saldo = (saldo - :jumlahUang) where userid = :userid")
+                    "update balance set amount = (amount - :jumlahUang) where \"userId\" = :userid")
                 .addParameter("jumlahUang", jumlahUang)
                 .addParameter("userid", idPengirim)
                 .executeUpdate();
@@ -60,12 +60,12 @@ public class TransaksiDaoImpl implements TranasaksiDao {
     @Override
     public int getDataPengirim(String idPengirim) {
         try (org.sql2o.Connection conn = sql2o.open()) {
-            List<User> saldoUser =
+            User saldoUser =
                 conn.createQuery("SELECT saldo from users where userid = :userid")
                     .addParameter("userid", idPengirim)
-                    .executeAndFetch(User.class);
+                    .executeAndFetchFirst(User.class);
 
-            return saldoUser.get(0).getSaldo();
+            return 0;
         }
     }
 

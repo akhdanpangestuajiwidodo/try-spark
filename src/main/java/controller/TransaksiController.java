@@ -52,7 +52,7 @@ public class TransaksiController extends AbstractController {
             response.status(200);
             response.type("application/json");
 
-            return transaksiServices.getDataPengirim("transaksi1");
+            return transaksiServices.getDataPengirim("b87b5514-807c-472d-96d2-9d0a49fae101");
         }, jsonTransformer);
 
     }

@@ -8,7 +8,5 @@ public class User {
     private String userId;
     @JsonAlias({"user_name", "userName"})
     private String username;
-    @JsonAlias("Saldo")
-    private int saldo;
     private boolean status;
 }

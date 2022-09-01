@@ -8,18 +8,21 @@ import helper.JsonTransformer;
 import java.util.UUID;
 import javax.inject.Inject;
 import model.User;
+import service.BalanceServices;
 import service.UserServices;
 
 public class UserController extends AbstractController {
 
     private final UserServices userServices;
+    private final BalanceServices balanceServices;
     private final JsonTransformer jsonTransformer;
     private final ObjectMapper objectMapper;
 
     @Inject
-    public UserController(UserServices userServices, JsonTransformer jsonTransformer,
+    public UserController(UserServices userServices, BalanceServices balanceServices, JsonTransformer jsonTransformer,
                           ObjectMapper objectMapper) {
         this.userServices = userServices;
+        this.balanceServices = balanceServices;
         this.jsonTransformer = jsonTransformer;
         this.objectMapper = objectMapper;
     }
@@ -37,9 +40,10 @@ public class UserController extends AbstractController {
 
             String id = userServices.insertUser(
                 UUID.randomUUID().toString(),
-                creation.getUsername(),
-                creation.getSaldo()
+                creation.getUsername()
             );
+
+            balanceServices.inputBalance(UUID.randomUUID().toString(), id);
 
             response.status(200);
             response.type("application/json");
