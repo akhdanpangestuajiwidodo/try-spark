@@ -4,7 +4,7 @@ import dao.BalanceDao;
 import javax.inject.Inject;
 
 public class BalanceServices {
-    private BalanceDao balanceDao;
+    private final BalanceDao balanceDao;
 
     @Inject
     public BalanceServices(BalanceDao balanceDao){
