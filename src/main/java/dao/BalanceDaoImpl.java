@@ -30,4 +30,18 @@ public class BalanceDaoImpl implements BalanceDao{
     public int updateBalance(String userId) {
         return 0;
     }
+
+    @Override
+    public String inputBalance(String balanceId, String userId) {
+        try (org.sql2o.Connection connection = sql2o.open()) {
+            connection.createQuery("insert into balance VALUES (:balanceId, :userId)")
+                .addParameter("balanceId", balanceId)
+                .addParameter("userId", userId)
+                .executeUpdate();
+            return userId;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
 }
