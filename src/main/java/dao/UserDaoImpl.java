@@ -18,7 +18,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public String insertUser(String userId, String username) {
         try (org.sql2o.Connection connection = sql2o.open()) {
-            connection.createQuery("insert into users VALUES (:userId, :username, :saldo)")
+            connection.createQuery("insert into users VALUES (:userId, :username)")
                 .addParameter("userId", userId)
                 .addParameter("username", username)
                 .executeUpdate();
