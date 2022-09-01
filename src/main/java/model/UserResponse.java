@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Data;
 
 @Data
-public class BalanceResponse {
+public class UserResponse {
     private String userId;
     @JsonAlias({"user_name", "userName"})
     private String username;

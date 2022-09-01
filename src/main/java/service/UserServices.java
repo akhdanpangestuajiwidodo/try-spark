@@ -3,6 +3,7 @@ package service;
 import dao.UserDao;
 import java.util.List;
 import javax.inject.Inject;
+import model.UserResponse;
 import model.User;
 
 public class UserServices {
@@ -14,12 +15,12 @@ public class UserServices {
         this.userDao = userDao;
     }
 
-    public List<User> getAllUser() {
+    public List<UserResponse> getAllUser() {
         return userDao.getAllUser();
     }
 
-    public String insertUser(String userId, String username, int saldo) {
-        return userDao.insertUser(userId, username, saldo);
+    public String insertUser(String userId, String username) {
+        return userDao.insertUser(userId, username);
     }
 
     public String loginUser(String username){
