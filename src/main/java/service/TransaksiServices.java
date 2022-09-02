@@ -18,7 +18,7 @@ public class TransaksiServices {
         return transaksiDao.getAllTransfer();
     }
 
-    public String doTransfer(
+    public int doTransfer(
         String transaksiId,
         String idPengirim,
         String idPenerima,

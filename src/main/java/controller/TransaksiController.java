@@ -36,7 +36,7 @@ public class TransaksiController extends AbstractController {
         post("/transfer", (request, response) -> {
             Transaksi creation = objectMapper.readValue(request.body(), Transaksi.class);
 
-            String id = transaksiServices.doTransfer(
+            int balanceUser = transaksiServices.doTransfer(
                 UUID.randomUUID().toString(),
                 creation.getIdPengirim(),
                 creation.getIdPenerima(),
@@ -45,7 +45,7 @@ public class TransaksiController extends AbstractController {
 
             response.status(200);
             response.type("application/json");
-            return id;
+            return balanceUser;
         });
 
         get("/saldofromuser", (request, response) -> {

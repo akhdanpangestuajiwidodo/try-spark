@@ -3,8 +3,10 @@ package dao;
 import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
+import model.Balance;
 import model.Transaksi;
 import model.User;
+import model.UserResponse;
 import org.sql2o.Sql2o;
 
 public class TransaksiDaoImpl implements TranasaksiDao {
@@ -23,7 +25,7 @@ public class TransaksiDaoImpl implements TranasaksiDao {
     }
 
     @Override
-    public String doTransfer(String transaksiId, String idPengirim, String idPenerima,
+    public int doTransfer(String transaksiId, String idPengirim, String idPenerima,
                              int jumlahUang) {
         try (org.sql2o.Connection connection = sql2o.beginTransaction()) {
             connection.createQuery(
@@ -48,13 +50,20 @@ public class TransaksiDaoImpl implements TranasaksiDao {
                 .addParameter("userid", idPengirim)
                 .executeUpdate();
 
+            Balance balanceUser = connection.createQuery(
+                "select amount from balance where \"userId\" = :userid")
+                .addParameter("userid", idPengirim)
+                .executeAndFetchFirst(Balance.class);
+
             connection.commit();
 
-            return transaksiId;
+            return balanceUser.getAmount();
+
         } catch (Exception e) {
             System.out.println(e);
         }
-        return null;
+
+        return 0;
     }
 
     @Override
