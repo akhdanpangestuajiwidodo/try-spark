@@ -32,10 +32,11 @@ public class BalanceDaoImpl implements BalanceDao{
     }
 
     @Override
-    public String inputBalance(String userId) {
+    public String inputBalance(String userId, String type) {
         try (org.sql2o.Connection connection = sql2o.open()) {
             UUID balanceId = UUID.randomUUID();
-            connection.createQuery("insert into balance VALUES (:balanceId, :userId)")
+            connection.createQuery("insert into balance (\"balanceId\",\"type\", \"userId\") VALUES (:balanceId, :type, :userId)")
+                .addParameter("type", type)
                 .addParameter("balanceId", balanceId)
                 .addParameter("userId", userId)
                 .executeUpdate();

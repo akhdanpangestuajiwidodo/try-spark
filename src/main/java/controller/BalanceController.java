@@ -6,6 +6,8 @@ import static spark.Spark.post;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import helper.JsonTransformer;
 import javax.inject.Inject;
+import model.Balance;
+import model.User;
 import service.BalanceServices;
 
 public class BalanceController extends AbstractController{
@@ -30,6 +32,16 @@ public class BalanceController extends AbstractController{
 
             return balanceServices.getBalance(request.params(":userid"));
         }, jsonTransformer);
+
+        post("/balance", (request, response) -> {
+            Balance creation = objectMapper.readValue(request.body(), Balance.class);
+
+            String id = balanceServices.inputBalance(creation.getUserId(), creation.getType());
+
+            response.status(200);
+            response.type("application/json");
+            return id;
+        });
 
     }
 }

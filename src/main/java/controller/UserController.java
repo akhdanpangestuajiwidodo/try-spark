@@ -14,15 +14,13 @@ import service.UserServices;
 public class UserController extends AbstractController {
 
     private final UserServices userServices;
-    private final BalanceServices balanceServices;
     private final JsonTransformer jsonTransformer;
     private final ObjectMapper objectMapper;
 
     @Inject
-    public UserController(UserServices userServices, BalanceServices balanceServices, JsonTransformer jsonTransformer,
+    public UserController(UserServices userServices, JsonTransformer jsonTransformer,
                           ObjectMapper objectMapper) {
         this.userServices = userServices;
-        this.balanceServices = balanceServices;
         this.jsonTransformer = jsonTransformer;
         this.objectMapper = objectMapper;
     }
@@ -41,8 +39,6 @@ public class UserController extends AbstractController {
             String id = userServices.insertUser(
                 creation.getUsername()
             );
-
-            balanceServices.inputBalance(id);
 
             response.status(200);
             response.type("application/json");
