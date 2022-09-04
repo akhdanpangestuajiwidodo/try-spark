@@ -19,12 +19,11 @@ public class TransaksiServices {
     }
 
     public int doTransfer(
-        String transaksiId,
         String idPengirim,
         String idPenerima,
         int jumlahUang
     ) {
-        return transaksiDao.doTransfer(transaksiId, idPengirim, idPenerima, jumlahUang);
+        return transaksiDao.doTransfer(idPengirim, idPenerima, jumlahUang);
     }
 
     public int getDataPengirim(String idPengirim) {

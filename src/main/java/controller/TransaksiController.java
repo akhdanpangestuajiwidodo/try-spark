@@ -37,7 +37,6 @@ public class TransaksiController extends AbstractController {
             Transaksi creation = objectMapper.readValue(request.body(), Transaksi.class);
 
             int balanceUser = transaksiServices.doTransfer(
-                UUID.randomUUID().toString(),
                 creation.getIdPengirim(),
                 creation.getIdPenerima(),
                 creation.getJumlahUang()

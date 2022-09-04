@@ -1,3 +1,4 @@
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import dao.BalanceDao;
 import dao.BalanceDaoImpl;
 import datasource.DataSource;

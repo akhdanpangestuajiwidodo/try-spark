@@ -6,7 +6,7 @@ import model.Transaksi;
 public interface TranasaksiDao {
     List<Transaksi> getAllTransfer();
 
-    int doTransfer(String transaksiId, String idPengirim, String idPenerima,
+    int doTransfer(String idPengirim, String idPenerima,
                    int jumlahUang);
 
     int getDataPengirim(String idPengirim);

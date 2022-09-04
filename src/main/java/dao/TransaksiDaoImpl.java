@@ -1,7 +1,9 @@
 package dao;
 
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import javax.inject.Inject;
 import model.Balance;
 import model.Transaksi;
@@ -25,8 +27,9 @@ public class TransaksiDaoImpl implements TranasaksiDao {
     }
 
     @Override
-    public int doTransfer(String transaksiId, String idPengirim, String idPenerima,
+    public int doTransfer(String idPengirim, String idPenerima,
                              int jumlahUang) {
+        UUID transaksiId = UUID.randomUUID();
         try (org.sql2o.Connection connection = sql2o.beginTransaction()) {
             connection.createQuery(
                     "insert into transaksi VALUES (:transaksiid, :idpengirim, :idpenerima, "
