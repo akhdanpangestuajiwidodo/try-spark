@@ -27,8 +27,18 @@ public class BalanceDaoImpl implements BalanceDao{
     }
 
     @Override
-    public int updateBalance(String userId) {
-        return 0;
+    public String topUpBalance(int amount, String type, String userId) {
+        try(org.sql2o.Connection connection = sql2o.open()){
+            connection.createQuery("update balance set amount = (amount + :amount) where \"userId\" = :userid and type = :type")
+                .addParameter("amount", amount)
+                .addParameter("userid", userId)
+                .addParameter("type", type)
+                .executeUpdate();
+            return userId;
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return null;
     }
 
     @Override

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import helper.JsonTransformer;
 import javax.inject.Inject;
 import model.Balance;
-import model.User;
 import service.BalanceServices;
 
 public class BalanceController extends AbstractController{
@@ -41,6 +40,16 @@ public class BalanceController extends AbstractController{
             response.status(200);
             response.type("application/json");
             return id;
+        });
+
+        post("/balance/topup", (request, response) -> {
+            Balance creation = objectMapper.readValue(request.body(), Balance.class);
+
+            String amount = balanceServices.updateBalance(creation.getAmount(), creation.getType(), creation.getUserId());
+
+            response.status(200);
+            response.type("application/json");
+            return amount;
         });
 
     }
