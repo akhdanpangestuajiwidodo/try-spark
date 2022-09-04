@@ -1,7 +1,10 @@
 package dao;
 
+import java.util.List;
+import model.Balance;
+
 public interface BalanceDao {
-    int getBalance(String userId);
+    List<Balance> getBalance(String userId);
     int updateBalance(String userId);
     String inputBalance(String balanceId, String userid);
 }

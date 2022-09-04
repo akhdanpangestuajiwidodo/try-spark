@@ -1,14 +1,10 @@
 package model;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
+import java.util.List;
 import lombok.Data;
 
 @Data
 public class UserResponse {
-    private String userId;
-    @JsonAlias({"user_name", "userName"})
-    private String username;
-    @JsonAlias("amount")
-    private int amount;
-    private boolean status;
+    private User user;
+    private List<Balance> listBalance;
 }

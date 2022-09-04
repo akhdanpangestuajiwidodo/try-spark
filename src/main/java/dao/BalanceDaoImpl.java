@@ -2,7 +2,7 @@ package dao;
 
 import java.util.List;
 import javax.inject.Inject;
-import model.UserResponse;
+import model.Balance;
 import org.sql2o.Sql2o;
 
 public class BalanceDaoImpl implements BalanceDao{
@@ -14,16 +14,15 @@ public class BalanceDaoImpl implements BalanceDao{
     }
 
     @Override
-    public int getBalance(String userId) {
+    public List<Balance> getBalance(String userId) {
         try (org.sql2o.Connection conn = sql2o.open()) {
-            List<UserResponse> saldoUser =
-                conn.createQuery("select userid, amount from users inner join balance on users"
-                        + ".userid = balance.\"userId\" where users.userid = "
-                        + ":userid").addParameter("userid", userId)
-                    .executeAndFetch(UserResponse.class);
 
-            return saldoUser.get(0).getAmount();
+            return conn.createQuery("select * from balance where \"userId\" = :userid").addParameter("userid", userId)
+                .executeAndFetch(Balance.class);
+        }catch (Exception e){
+            System.out.println(e);
         }
+        return null;
     }
 
     @Override

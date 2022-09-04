@@ -1,7 +1,9 @@
 package service;
 
 import dao.BalanceDao;
+import java.util.List;
 import javax.inject.Inject;
+import model.Balance;
 
 public class BalanceServices {
     private final BalanceDao balanceDao;
@@ -11,7 +13,7 @@ public class BalanceServices {
         this.balanceDao = balanceDao;
     }
 
-    public int getBalance(String userId){
+    public List<Balance> getBalance(String userId){
         return balanceDao.getBalance(userId);
     }
 

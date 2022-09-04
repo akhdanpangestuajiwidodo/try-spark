@@ -18,6 +18,11 @@ public class Main {
         //perlu ada history balance jg
         //kayaknya dibutuhkan table baru untuk balance/ saldo
 
+        //bikin dao baru untuk langsung bikin balance baru dan user
+        //logic service dipindah di servis bukan di controller
+        //type balance ditambahkan
+        //
+
         Injector injector = Guice.createInjector(new AppModule());
         UserController userController = injector.getInstance(UserController.class);
         TransaksiController transaksiController = injector.getInstance(TransaksiController.class);

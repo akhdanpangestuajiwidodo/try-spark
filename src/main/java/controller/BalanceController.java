@@ -24,7 +24,7 @@ public class BalanceController extends AbstractController{
     @Override
     public void registerApi() {
 
-        get("/balance/:userid", (request, response) -> {
+        get("/users/balance/:userid", (request, response) -> {
             response.status(200);
             response.type("application/json");
 
