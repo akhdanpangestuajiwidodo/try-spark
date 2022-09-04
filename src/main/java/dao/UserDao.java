@@ -5,7 +5,7 @@ import model.UserResponse;
 import model.User;
 
 public interface UserDao {
-    String insertUser(String userId, String username);
+    String insertUser(String username);
     List<UserResponse> getAllUser();
     String loginUser(String username);
     User getStatusUser(String username);

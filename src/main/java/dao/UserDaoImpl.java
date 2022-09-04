@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.UUID;
 import javax.inject.Inject;
 import model.UserResponse;
 import model.User;
@@ -16,13 +17,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public String insertUser(String userId, String username) {
+    public String insertUser(String username) {
         try (org.sql2o.Connection connection = sql2o.open()) {
+            UUID userId = UUID.randomUUID();
             connection.createQuery("insert into users VALUES (:userId, :username)")
                 .addParameter("userId", userId)
                 .addParameter("username", username)
                 .executeUpdate();
-            return userId;
+            return userId.toString();
         } catch (Exception e) {
             System.out.println(e);
         }

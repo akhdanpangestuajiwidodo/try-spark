@@ -39,11 +39,10 @@ public class UserController extends AbstractController {
             User creation = objectMapper.readValue(request.body(), User.class);
 
             String id = userServices.insertUser(
-                UUID.randomUUID().toString(),
                 creation.getUsername()
             );
 
-            balanceServices.inputBalance(UUID.randomUUID().toString(), id);
+            balanceServices.inputBalance(id);
 
             response.status(200);
             response.type("application/json");

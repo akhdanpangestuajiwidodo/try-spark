@@ -19,8 +19,8 @@ public class UserServices {
         return userDao.getAllUser();
     }
 
-    public String insertUser(String userId, String username) {
-        return userDao.insertUser(userId, username);
+    public String insertUser(String username) {
+        return userDao.insertUser(username);
     }
 
     public String loginUser(String username){

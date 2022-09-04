@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.UUID;
 import javax.inject.Inject;
 import model.Balance;
 import org.sql2o.Sql2o;
@@ -31,13 +32,14 @@ public class BalanceDaoImpl implements BalanceDao{
     }
 
     @Override
-    public String inputBalance(String balanceId, String userId) {
+    public String inputBalance(String userId) {
         try (org.sql2o.Connection connection = sql2o.open()) {
+            UUID balanceId = UUID.randomUUID();
             connection.createQuery("insert into balance VALUES (:balanceId, :userId)")
                 .addParameter("balanceId", balanceId)
                 .addParameter("userId", userId)
                 .executeUpdate();
-            return userId;
+            return "the balance id is" + balanceId;
         } catch (Exception e) {
             System.out.println(e);
         }

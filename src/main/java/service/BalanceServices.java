@@ -17,7 +17,7 @@ public class BalanceServices {
         return balanceDao.getBalance(userId);
     }
 
-    public String inputBalance(String balanceId, String userId){return balanceDao.inputBalance(balanceId, userId);}
+    public String inputBalance(String userId){return balanceDao.inputBalance(userId);}
 
     public int updateBalance(String userId){
         return balanceDao.updateBalance(userId);
