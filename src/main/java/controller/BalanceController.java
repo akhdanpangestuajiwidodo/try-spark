@@ -9,14 +9,15 @@ import javax.inject.Inject;
 import model.Balance;
 import service.BalanceServices;
 
-public class BalanceController extends AbstractController{
+
+public class BalanceController extends AbstractController {
     private final BalanceServices balanceServices;
     private final JsonTransformer jsonTransformer;
     private final ObjectMapper objectMapper;
 
     @Inject
     public BalanceController(BalanceServices balanceServices, JsonTransformer jsonTransformer,
-                               ObjectMapper objectMapper) {
+                             ObjectMapper objectMapper) {
         this.balanceServices = balanceServices;
         this.jsonTransformer = jsonTransformer;
         this.objectMapper = objectMapper;
@@ -45,7 +46,8 @@ public class BalanceController extends AbstractController{
         post("/balance/topup", (request, response) -> {
             Balance creation = objectMapper.readValue(request.body(), Balance.class);
 
-            String amount = balanceServices.updateBalance(creation.getAmount(), creation.getType(), creation.getUserId());
+            String amount = balanceServices.updateBalance(creation.getAmount(), creation.getType(),
+                creation.getUserId());
 
             response.status(200);
             response.type("application/json");

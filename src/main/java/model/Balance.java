@@ -8,6 +8,6 @@ public class Balance {
     private String balanceId;
     @JsonAlias({"userid", "user_id"})
     private int amount;
-    private String type;
+    private BankType type;
     private String userId;
 }

@@ -12,7 +12,7 @@ public class UserDaoImpl implements UserDao {
     private final Sql2o sql2o;
 
     @Inject
-    public UserDaoImpl(Sql2o sql2o){
+    public UserDaoImpl(Sql2o sql2o) {
         this.sql2o = sql2o;
     }
 
@@ -42,18 +42,19 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public String loginUser(String username) {
-        try(org.sql2o.Connection connection = sql2o.open()){
-           connection.createQuery("update users set status = true where username = :username")
+        try (org.sql2o.Connection connection = sql2o.open()) {
+            connection.createQuery("update users set status = true where username = :username")
                 .addParameter("username", username)
                 .executeUpdate();
-           return username;
+            return username;
         }
     }
 
     @Override
     public User getStatusUser(String username) {
         try (org.sql2o.Connection conn = sql2o.open()) {
-            return conn.createQuery("select status from users where username = :username").addParameter("username", username).executeAndFetchFirst(User.class);
+            return conn.createQuery("select status from users where username = :username")
+                .addParameter("username", username).executeAndFetchFirst(User.class);
         }
     }
 }
